@@ -29,13 +29,24 @@
 </body>
 <script>
     function choose(x) {
-        if (x == 0) {
-            document.getElementById("player_choice").innerHTML = "You clicked rock";
-        } else if ( x == 1) {
-            document.getElementById("player_choice").innerHTML = "You clicked Paper";
-        } else {
-            document.getElementById("player_choice").innerHTML = "You clicked Scissors";
-        }
+        
+        //call an endpoint
+        fetch("/play?c=" + x)
+        .then(response => response.json())
+        .then(data => {
+            //console.log(data)
+            if (x == 0) {
+                document.getElementById("player_choice").innerHTML = "You clicked ROCK";
+            } else if ( x == 1) {
+                document.getElementById("player_choice").innerHTML = "You clicked PAPER";
+            } else {
+                document.getElementById("player_choice").innerHTML = "You clicked SCISSORS";
+            }
+            document.getElementById("computer_choice").innerHTML = data.computer_choice;
+            document.getElementById("round_result").innerHTML = data.round_result;
+        })
+
+       
      
     }
 </script>

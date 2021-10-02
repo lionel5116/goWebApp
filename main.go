@@ -6,6 +6,7 @@ import (
 	"log"
 	"myapp/rps"
 	"net/http"
+	"strconv"
 )
 
 func homePage(w http.ResponseWriter, r *http.Request) {
@@ -13,20 +14,19 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func playRound(w http.ResponseWriter, r *http.Request) {
-	result := rps.PlayRound(1)
+	playerChoice, _ := strconv.Atoi(r.URL.Query().Get("c"))
+	result := rps.PlayRound(playerChoice)
 
 	out, err := json.MarshalIndent(result, "", "    ")
 	if err != nil {
 		log.Println(err)
 		return
 	}
-
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(out)
 }
 
 func main() {
-	//create the endpoints
 	http.HandleFunc("/play", playRound)
 	http.HandleFunc("/", homePage)
 
@@ -46,5 +46,4 @@ func renderTemplate(w http.ResponseWriter, page string) {
 		log.Println(err)
 		return
 	}
-
 }
