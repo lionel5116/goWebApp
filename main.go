@@ -30,8 +30,8 @@ func main() {
 	http.HandleFunc("/play", playRound)
 	http.HandleFunc("/", homePage)
 
-	log.Println("Starting web server on port 8080")
-	http.ListenAndServe(":8080", nil)
+	log.Println("Starting web server on port 8085")
+	http.ListenAndServe(":8085", nil)
 }
 
 func renderTemplate(w http.ResponseWriter, page string) {
