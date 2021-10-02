@@ -3,6 +3,7 @@ package main
 import (
 	"html/template"
 	"log"
+	"myapp/rps"
 	"net/http"
 )
 
@@ -10,7 +11,15 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "index.html")
 }
 
+func playRound(w http.ResponseWriter, r *http.Request) {
+	winner, computerChoice, roundResult := rps.PlayRound(1)
+	log.Println(winner, computerChoice, roundResult)
+
+}
+
 func main() {
+	//create the endpoints
+	http.HandleFunc("/play", playRound)
 	http.HandleFunc("/", homePage)
 
 	log.Println("Starting web server on port 8080")
