@@ -14,6 +14,8 @@ const (
 	DRAW         = 3
 )
 
+//notice how we declare the struct's `json:"<tags>` , this is what the json response returns as the field
+//in the html file for the response, it says data.round_result - AHHHHH, makes since now
 type Round struct {
 	Winner         int    `json:"winner"`
 	ComputerChoice string `json:"computer_choice"`
